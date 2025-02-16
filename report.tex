@@ -1,0 +1,309 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+\usepackage{textcomp}
+\usepackage{cite}
+\usepackage{geometry}
+\usepackage{algorithmic}
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+\usepackage{amstext}
+%%% Examples of Article customizations
+% These packages are optional, depending whether you want the features they provide.
+% See the LaTeX Companion or other references for full information.
+
+%%% PAGE DIMENSIONS
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+% \geometry{margin=2in} % for example, change the margins to 2 inches all round
+% \geometry{landscape} % set up the page for landscape
+%   read geometry.pdf for detailed page layout information
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+\usepackage{indentfirst}
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+\bibliographystyle{unsrt}
+
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+\title{Probability Final Report}
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+\date{}
+\begin{document}
+\maketitle
+\section{Introduction}
+Martingale is an important concept of probability theory, which is widely used in random process, statistics, financial mathematics and other fields. The concept of martingale was first introduced by French mathematician Paul Lévy in the 1930s, and has been widely developed and applied. Especially in stochastic processes, financial market modeling, and gambling theory.
+
+However, martingale theory is not a very basic statistical concept. To understand the concept of a martingale, learners need at least some basic knowledge of statistics, stochastic processes, fundamentals of analytics, integrals. Given the limited mathematical basis, this paper will focus on the discrete martingale theory.
+
+This paper will first introduce the historical origin of martingale theory. Secondly, conditional expectations and martingale are introduced through some mathematical calculation. Finally, the practical application of martingale theory is introduced.
+
+\section{History of Martingale}
+\subsection{Martingale Strategy}
+The history of martingale theory begins with a theory of gambling also known as Martingale. The Martingale strategy describes a situation that in a two-sided market where people can buy up or down, buyers generally only bet on one side. Start with a \$1 bet. If don't succeed, buyers will keep increasing. Until buyers succeed, make up all the previous losses and end the game. We can prove the correctness of Martingale's strategy by simple mathematical calculations.
+Let $n \in N$ be the number of rounds, $p\in(0,1]$ be the probability of winning.
+
+The paper begins by discussing the inputs in each round.
+$$
+\text{Round Bet: }T_n = 2^{n-1}
+$$
+$$
+\text{Total Loss: } Tot_n = \sum_{i = 1}^{n-1}T_i = 2^{n-1}-1
+$$
+$$
+\text {If the round is won, the buyer can get }T_n-Tot_n = 2^{n-1}- (2^{n-1}-1) = 1
+$$
+
+From the above calculation, the buyer makes a profit if and only if there is a winning gamble. In the following, we will prove that using the Martingale strategy must be profitable by calculating the probability of winning.
+$$	
+\begin{aligned}
+P(\text{Successful in Round n and Before}) &= \sum_{i=1}^{n}P(\text{Success in Round i}) \\
+&=\sum_{i=1}^{n}(1-p)^{i-1}\times p \\
+&=p \times \frac{1-(1-p)^n}{1-(1-p)}\\
+&=1-(1-p)^n\\
+\end{aligned}
+$$
+$$
+\lim_{n\to \infty}P(\text{Successful in Round n and Before}) = 1
+$$
+
+Although, by calculation, the Martingale strategy does guarantee a dollar of profit by doubling down on the bet. However, the Martingale strategy is not a good betting strategy. It requires billions of dollars from investors to guarantee a profit. If a gambler is unlucky, he is likely to go bankrupt.
+\subsection{The Invention of Martingale Theory}
+
+The origin of martingale theory, like its name, has to do with gambling. Martingale theory was first studied on the fairness of gambling. In China, a translation of martingale is fair gambling, and it can be seen that martingale is often used as a mathematical model of fair games. Martingale theory was first proposed by Paul Lévy in 1934, but the theory was not named martingale. In 1939, Ville discussed martingales for the continuous case. At the same time use the word Martingale to name the theory. Later, Joseph Leo Doob developed this theory and wrote \textit{Stochastic Processes}. It is mentioned that successful betting strategies do not exist. This shows the strong connection between martingale theory and gambling, games. In the following sections, martingale theory will be applied to gambling several times to better understand the theory.
+\section{Definition of Martingale}
+\subsection{Conditional Expectations}
+\subsubsection{Definition of Conditional Expectations}
+In order to understand martingale, this paper will first introduce a probability theory closely related to martingale: conditional expectation.\cite{lable1} The conditional expectation is somewhat similar to the conditional probability. Let us first recall the definition of conditional probability.
+$$
+P(A|B) = \frac{P(A\cap B)}{P(B)}
+$$
+
+$P(A|B)$ represents the conditional probability of A given B. And how to express the expectation of random variable X given B? Conditional expectations have a similar definition.
+$$
+\mathbb E(X|B) = \frac{\mathbb E(X\cdot \mathbb{I}_B)}{P(B)}
+$$
+
+In particular, $\mathbb{I}_B$ is the indicator function, indicating whether the random variable belongs to B or not.
+$$
+\begin{aligned}
+\mathbb{I}_B(\omega)
+=\begin{cases}
+1,\quad \omega \in B\\
+0, \quad \omega \notin B
+\end{cases}
+\end{aligned}
+$$
+
+More specifically, when we have a random variable X, and their expectation depends on the information set $\{Z_1,Z_2,...Z_n\}$ formed by N occurrences of events. Where the information set of n events is taken as the condition, the expectation of the random variable obtained is
+$$
+\mathbb E_n(X) = \mathbb E(X|Z_1,Z_2,...,Z_n)
+$$
+\subsubsection{Properties of Conditional Expectations}
+\textbf{Linearity}: For all constants $c_1$ and $c_2$, the following equality holds:
+$$
+\mathbb E_n(c_1X+c_2Y) = c_1\mathbb E_n(X) + c_2\mathbb E_n(Y)
+$$
+
+\textbf{Iterated Conditioning}: For $0 \leq n \leq m \leq N$, has
+$$
+	\mathbb E_n[\mathbb E_m(X)] = \mathbb E_n(X)
+$$ 
+
+It shows that the conditional expectation of X, depends on the minimum in the information set. In particular, for the unconditional expectation, which can be seen as n=0, has
+$$
+	\mathbb E[\mathbb E_m(X)] = \mathbb E(X)
+$$
+
+\textbf{Independence}: If X depends on the information set composed of events from n+1 to N: $\{Z_{n+1},Z_{n+2},...,Z_N\}$, then,
+$$
+\mathbb E_n(X) = \mathbb E(X)
+$$
+So the condition here is independent of the random variable.
+
+Through these properties we can perceive the conditional expectation. It describes the expectation of a decision given information.
+\subsection{Martingale}
+\subsubsection{Concept of Discrete Martingale}
+
+The concept of conditional expectation has been mentioned above, and the martingale will be formally introduced in the following paper. As stated in the introduction, only discrete martingales will be introduced due to the limited mathematical foundation.
+
+Suppose there is a random sequence $\{X_n\}, n =0,1,2,...$, for $\forall n \geq 0$, has
+$$
+	\mathbb E(X_n) < \infty
+$$
+which means the expectation of $X_n$ is bounded. Also has
+$$
+	\mathbb E(X_{n+1}|X_1,X_2,...,X_n) = X_n
+$$
+Then $\{X_n\}$ is a discrete martingale sequence.
+
+Discrete martingale has an aftereffect property. And the conditional expectation of the random variable $X_{n+1}$ with respect to all the previous information depends only on $X_n$ at time n, not on the sequence of random variables $X_0,X_1,...,X_{n-1}$ before time n. And this conditional expectation is exactly equal to the random variable $X_n$ at time n.
+
+Further, for two random sequences $\{X_n\}$ and $\{Y_n\}$, n = 0,1,2,..., $\forall n \geq 0$, has
+$$
+	\mathbb E(X_n) < \infty
+$$
+$$
+	X_n \text{ is a function of } Y_0,Y_1,...,Y_n
+$$
+$$
+	\mathbb E(X_{n+1}|Y_1,Y_2,...,Y_n) = X_n
+$$
+Then $\{X_n\}$ is a martingale of $\{Y_n\}$.
+
+The necessary and sufficient condition for $\{X_t\}$ to be a martingale of $\{Y_t\}$ is
+$$
+	\forall m,n(m>n>0),\mathbb E(X_m|Y_1,Y_2,...,Y_n) = X_n
+$$
+
+From the above introduction, we can get a perceptual understanding of martingale. A martingale means that the expectation of a new round of decisions with n pieces of information is equal to that of the n round. In other words, the n pieces of information are not helpful for new decisions.
+\subsubsection{Submartingale and Supermartingale}
+
+For a random sequences $\{X_n\}$, n = 0,1,2,..., $\forall n \geq 0$, has
+$$
+	\mathbb E(X_{n+1}|X_1,X_2,...,X_n) \geq X_n
+$$
+$X_n$ is a submartingale. For submartingale, has
+$$
+\mathbb E(X_n) \geq \mathbb E(X_m),n>m
+$$
+
+On the contrary,
+$$
+	\mathbb E(X_{n+1}|X_1,X_2,...,X_n) \leq X_n
+$$
+$X_n$ is a supermartingale. And supermartingale has
+$$
+\mathbb E(X_n) \geq \mathbb E(X_m),m>n
+$$
+ 
+It can be seen that for a submartingale, the expected value of $X_n$ tends to increase as information increases. However, for the supermartingale, the expected value of $X_n$ tends to decrease. For gambling, we can think of a submartingale as a favorable gamble. Because the expectation of money increases gradually as the number of gambles increases. However, the supermartingale is an adverse gamble, and the money will gradually decrease as the number of gambles increases. For a martingale, it's a fair gamble.
+\section{Application of Martingale}
+
+Martingales are not limited to simple stochastic processes, but can be extended to more complex scenarios such as continuum-time processes (such as Brownian motion) and more general stochastic processes (such as Markov processes). These extensions have a wide range of applications in modern probability theory and statistics, especially in financial modeling, risk management, control theory, etc.
+\subsection{Applying Martingale to Martingale Strategy}
+
+Return to the Martingale strategy introduced at the beginning of this paper. Although with an infinite number of rounds, the Martingale strategy must be profitable. However, gambling is not profitable in all cases. With such high risk, buyers have to consider the issue of profitability.
+
+We can define the profit rate $\rho$.
+$$
+	\rho = \frac{E_{income}}{E_{expense}}
+$$
+$$
+E_{income} = 1
+$$
+$$
+\begin{aligned}
+E_{expense} &= \sum_{i=1}^{\infty}\; P(\text{Success in round i})\times (Tot_i + T_i) \\
+&= \sum_{i=1}^{\infty}\; (1-p)^{i-1}\times p\times (2^{i} -1)\\
+&= \sum_{i=1}^{\infty}\; (1-p)^{i-1}\times p\times 2^{i} \; - \; \sum_{i=1}^{\infty}\; (1-p)^{i-1}\times p \\
+&=
+\begin{cases}
+\lim_{n \rightarrow +\infty}\;\bigg(2p\times \frac{1-(2-2p)^n}{2p-1} -P(\text{Successful in Round n and Before})\bigg),\quad p \neq \frac{1}{2}\\
+\sum_{i=1}^{\infty}\; p \; - \; \lim_{n \rightarrow +\infty}\;\bigg(P(\text{Successful in Round n and Before})\bigg),\quad p = \frac{1}{2}\\
+\end{cases} \\
+&=\begin{cases}
+\frac{1}{2p-1} , \quad p> \frac{1}{2} \\
++\infty, \quad p \leq \frac{1}{2}
+\end{cases}
+\end{aligned}
+$$
+$$
+\begin{aligned}
+\rho &=\frac{E_{income}}{E_{expense}} \\
+&=\begin{cases}
+2p-1, \quad p> \frac{1}{2} \\
+0, \quad p \leq \frac{1}{2}
+\end{cases}
+\end{aligned} \\
+$$
+
+It can be seen that when $p>\frac{1}{2}$, the gamble can be considered profitable and can be tried. On contrary, when $p\leq \frac{1}{2}$, it can be considered that it has no profit value and the buyer should give up.
+
+At the same time, we can also use martingale theory to analysis.
+$$
+\mathbb E(T_i|T_1,T_2,...,T_{n-1}) = T_i \times p = 2\times T_{n-1} \times p
+$$
+
+When $p > \frac{1}{2}$
+$$
+\mathbb E(T_i|T_1,T_2,...,T_{n-1}) = T_i \times p = 2\times T_{n-1} \times p > T_{n-1}
+$$
+$T_n$ is a submartingale. And it is a profitable gamble.
+
+When $p \leq \frac{1}{2}$
+$$
+\mathbb E(T_i|T_1,T_2,...,T_{n-1}) = T_i \times p = 2\times T_{n-1} \times p \leq T_{n-1}
+$$
+$T_n$ is a supermartingale. And it is a non-profitable gamble.
+\subsection{Gambler‘s Fallacy}
+
+The gambler's fallacy is the false belief that the chance of an event occurring in a random sequence is related to previous events, that is, the chance of its occurring increases with the number of times the event has not occurred before. \cite{lable2}If a fair coin is repeatedly tossed and tails are thrown many times in a row, the gambler may mistakenly believe that the next time heads are thrown is more likely.
+
+Let $X_n$ be the property of a gambler after n tosses of a fair coin. The rule is that if the coin comes up heads, the gambler wins a dollar, and if not, he loses a dollar.
+$$
+\begin{aligned}
+\mathbb E(X_{n+1}|X_1,X_2,...X_n) &= \mathbb E(X_n + 1|X_1,X_2,...X_n) \times \frac{1}{2} + \mathbb E(X_n-1|X_1,X_2,...X_n) \times \frac{1}{2} \\
+&= X_n\times \frac{1}{2} + 1 \times \frac{1}{2} + X_n\times \frac{1}{2} - 1 \times \frac{1}{2}\\
+&= X_n
+\end{aligned}
+$$
+
+$\{X_n\}$ is a martingale. The past information set does not affect the value of $X_n$. The gambler's fallacy is wrong.
+
+\subsection{Application in Economics}
+
+\textbf{Efficient market hypothesis}\cite{lable3} refers to that in a stock market with sound laws, good functions, high transparency and full competition, all valuable information has been timely, accurately and fully reflected in the trend of stock prices, including the current and future value of enterprises. That is, with all the historical information in the market, no party can make an efficient forecast. This is consistent with the implications of a martingale.
+
+In financial engineering, merchants often price financial products based on no-arbitrage analysis. Arbitrage opportunities do not exist in efficient markets, and for this reason martingales can be seen as a mathematical description of arbitrage free.
+
+In addition, for the analysis of common financial asset prices, they do not all satisfy the property of martingale. For example, the time value of a European option will decrease as the contract expiration date approaches, so the value of a European option satisfies a supermartingale.
+\subsection{Application in Communication}
+
+Martingale theory plays an important role in 5G polar code coding principle\cite{lable4}. \textbf{Polar code} is a forward error correcting encoding used for signal transmission. By applying martingale process to polar codes, the relationship between random variables can be well analyzed from the perspective of mathematical expectation. Stochastic processes are often involved in the performance analysis of polar codes, and martingale processes can be used to evaluate their error probability and convergence rate. Tools such as martingale convergence theorem are particularly useful when analyzing the asymptotic performance of polar codes.
+
+\section{Conclusion}
+In general, martingale theory is the theory of analyzing random variables through the perspective of expectation, conditioned on all information up to time n. Martingale theory provides powerful tools to analyze and understand the behavior of stochastic processes and is widely used in several subject areas. The core lies in the study of the long-run behavior and convergence of stochastic processes through the properties of conditional expectations.
+
+\begin{thebibliography}{99}
+\bibitem{lable1}D. Khoshnevisan, Probability. Providence, R.I: American Mathematical Society, 2007.
+\bibitem{lable2}M. Kovic and S. Kristiansen, “The gambler’s fallacy fallacy (fallacy),” Journal of risk research, vol. 22, no. 3, pp. 291–302, 2019, doi: 10.1080/13669877.2017.1378248
+\bibitem{lable3}Malkiel, B.G. (1989). Efficient Market Hypothesis. In: Eatwell, J., Milgate, M., Newman, P. (eds) Finance. The New Palgrave. Palgrave Macmillan, London. https://doi.org/10.1007/978-1-349-20213-3\_13
+\bibitem{lable4}A. Pascucci, PDE and martingale methods in option pricing. Milan; Springer,2011.
+
+\end{thebibliography}
+\end{document}
