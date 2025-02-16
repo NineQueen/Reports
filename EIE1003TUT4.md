@@ -1,14 +1,18 @@
 #  Pearson correlation coefficient
 ## Definition
+
 $$
     \text{Covariance } cov(X,Y) = \frac{1}{n}\sum_{i=1}^{n}[(x_i-\mu_X)(y_i-\mu_Y)] = \mathbb E[(x_i-\mu_X)(y_i-\mu_Y)]
 $$
+
 $$
     \rho_{X,Y} = \frac{cov(X,Y)}{\sigma_X \sigma_Y} = \frac{E[(x_i-\mu_X)(y_i-\mu_Y)]}{\sigma_X \sigma_Y} 
 $$
+
 $$
 \rho_{X,Y} \in [-1,1]
 $$
+
 Pearson correlation coefficient is the ratio between the covariance of two variables and the product of their standard deviations; thus, it is essentially a normalized measurement of the covariance, such that the result always has a value between −1 and 1. 
 ## Interpretation
 When $|\rho_{X,Y}| = 1$, which implies that a linear equation describes the relationship between X and Y perfectly, with all data points lying on a line. More specifically, $\rho_{X,Y} = 1$ means Y increases as X increases, on contrary, $\rho_{X,Y}=-1$ implies that Y decreases as X increases.
@@ -18,6 +22,7 @@ $\rho_{X,Y}=0$ implies that there is no linear dependency between the variables 
 More generally, $\rho_{X,Y} >0$ implies that the two variables X and Y are positive correlation, which means Y increases as X increases in general. On the contrary, $\rho_{X,Y}<0$ represents the two variables are negative correlation. Besides, the bigger $|\rho_{X,Y}|$ is, the stronger the correlation between the two variables.
 ##  Illustration
 There are two variables: Students and Books. Following are 15 samples.
+
 |Students| Books|
 |---|---|
 |36|31|
@@ -34,19 +39,26 @@ There are two variables: Students and Books. Following are 15 samples.
 |26|26|
 
 Due to the 15 group of statisics are samples, we should use sample variance and sample covariance to calculate Pearson correlation coefficient.
+
 $$
     cov(X,Y) = \frac{1}{n-1}\sum_{i=1}^{n}[(x_i-\mu_X)(y_i-\mu_Y)]
 $$
+
 $$
     \rho_{X,Y} = \frac{cov(X,Y)}{S_X S_Y}
 $$
+
 By calculating,
+
 $$
+\begin{aligned}
     cov(X,Y) = 13.4545 \\
     S_X = 4.4721 \\
     S_Y = 3.3439\\
     r = \rho_{X,Y} = \frac{cov(X,Y)}{S_X S_Y} = \frac{13.4545}{4.4721\times 3.3439} = 0.8997
+\end{aligned}
 $$
+
 # p-value
 P-value is, under the assumption that the Null Hypothesis ($H_0$) is true, the probability of obtaining test results at least as extreme as the results actually observed.
 
@@ -66,25 +78,45 @@ $H_0$:  Students and Books are not correlated
 $H_a$: Students and Books are correlated
 
 By using Pearson correlation coefficient r, we have
+
 $$
-    t = r\times \sqrt{\frac{n-2}{1-r^2}} \\
+    t = r\times \sqrt{\frac{n-2}{1-r^2}}
+$$
+
+$$
     df = n-2
 $$
+
 In this case,
+
 $$
-    n = 12 \\
+    n = 12
+$$
+
+$$
     r = 0.8997
 $$
+
 We can assume $$\alpha = 0.01$$ which is a relatively strict significance level.
 
 By calculating,
+
 $$
-    t = 6.5178 \\
+    t = 6.5178
+$$
+
+$$
     df = 10
 $$
+
 Bring the value into the calculator and select two-tailed  hypothesis
+
 $$
-    p = 0.000067 <0.0001<0.01 \\
+    p = 0.000067 <0.0001<0.01
+$$
+
+$$
     p << a
 $$
+
 We can reject $H_0$, and consider Students and Books are correlated.
